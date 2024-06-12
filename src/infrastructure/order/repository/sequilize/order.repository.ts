@@ -43,6 +43,17 @@ export default class OrderRepository {
         },
       }
     );
+
+    for (const item of entity.items) {
+        await OrderItemModel.upsert({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          order_id: entity.id,
+          product_id: item.productId,
+        });
+    }
   }
 
   async find(id: string): Promise<Order> {
