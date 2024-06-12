@@ -58,7 +58,8 @@ export default class OrderRepository {
 
   async find(id: string): Promise<Order> {
     const orderModel = await OrderModel.findOne({
-      where: {id}
+      where: {id},
+      include: [{ model: OrderItemModel}],
     });
     return OrderFactory.create({
       id: orderModel.id,
